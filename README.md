@@ -6,9 +6,23 @@ Make a Robot Move using the MSP430 and pulse Modulation... For experts, make rob
 
 #Pre Lab
 
+This is a picture of the general idea for the Hardward Setup for the Robot:
+
+![alt text](https://raw.githubusercontent.com/JarrodWooden/Lab6/master/HardwarePrelab.jpg "Hardware Design for the Robot")
+
+The only difference to the hardware design is that I decided to use two pins for the PWM signal to the robot motor driver and two GPIO pins to set as either Voltage High or Voltage Low depending on whether or not I want the Robot to move Forwards or Backwards.
+
+Here is the general idea for software design:
+
+![alt text](https://raw.githubusercontent.com/JarrodWooden/Lab6/master/SoftwarePrelab.jpg "Software Design for the Robot")
+
 This information was recieved from this url: www.hobbytronics.co.uk/h-bridge-driver-sn754410
 
 Because the datasheet was not very helpful with a general overview on how it actually works and should connect to our robot and MSP430
+
+Here is the picture of the motor driver with all the connections!:
+
+![alt text](https://raw.githubusercontent.com/JarrodWooden/Lab6/master/sn754410-connections.jpg "SN754410 Motor Driver Connections")
 
 "H-Bridge Motor Driver 1A - SN754410
 
