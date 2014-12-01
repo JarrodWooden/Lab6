@@ -628,6 +628,16 @@ The important pieces of code for required functionality is the clearing and sett
 
 ###Debugging: Delay Cycles
 
+Hardware Debugging:
+
+To get the hardware functioning properly I plugged up the motor driver using capacitors betweent he power supply to the motor driver chip and ground to smooth the signal. However, when I was doing this there was a short circuit happening with more than one of the capacitors so I took out all of the capacitors and the motor driver chip worked fine. I was able to complete the lab not using any capacitors; however, this method is still not recommended if you can get the capacitors to work properly for their purpose.
+
+The only capacitors that ended up being used were the electrolytic capacitors that when from the +5V and +12V power supply busses to ground and that is it. Also, connecting the reset pin on the MSP430 to anything wasn't necessary either.
+
+Also, if a fuse is blown on the robot. Make sure you check which fuse it is and before plugging everything up reload a new program that fixes the duty cycle of the PWM and take the wheels off of the ground before turning the robot back on or it is likely you will blow more than one fuse on the robot.
+
+Software Debugging Below:
+
 Almost all of the debugging was making the delay cycles for each of the turns long enough to perform a 45 degree turn or a 90 degree turn. Also since the motors weren't precise, it took longer for the right motor to move forward to make the left hand 45 and 90 degree turn than it did for the left motor to move forward to make the right hand turns.
 
 I kept testing the robot turns until I made the turns close to what I wanted for the delay cycles (45 and 90 degrees)
@@ -639,3 +649,6 @@ Also from the start of the lab it was difficult to get the method of using all P
 Once I got the turns to work for required functionality I was able to make a simply program to run through all of the methods for the robot moving forward backwards, left or right 45 degrees, and left or right 90 degrees. I was able to demonstrate that my program and robot worked for the required functionality.
 
 Then A functionality was simple. I was able to just run the robot move operation for the desired button pressed. When that button was pressed I used A functionality to tell what button was pressed then perform the desired move. One thing that I had to do was keep reinitiating the MSP430 in the infinite while loop so that the timer was functioning properly for checking if an IR packet was recieved then I changed the timer for the moving of the robot when a button press event happened.
+
+
+#Thank you and have a great Air Force Day
