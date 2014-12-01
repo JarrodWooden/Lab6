@@ -633,3 +633,9 @@ Almost all of the debugging was making the delay cycles for each of the turns lo
 I kept testing the robot turns until I made the turns close to what I wanted for the delay cycles (45 and 90 degrees)
 
 Also from the start of the lab it was difficult to get the method of using all PWM pins for the motor and switching from constantly reseting on one pin and doing the set/reset on the other pin and then just switching the function of the two for moving the opposite direction. -> Which is why I ended up using the GPIO method of making one pin the PWM signal and the other pin a 1 or 0 depending on if I wanted to move the robot forward or backwards.
+	-The problem arising from the first method that wasn't working was that I was unable to change the PWM signal. I 
+		would get a signal but then the signal wouldn't be the duty cycle I wanted and when I changed the duty cycle 		nothing else was changing. Eveything worked when I was working with the second method.
+
+Once I got the turns to work for required functionality I was able to make a simply program to run through all of the methods for the robot moving forward backwards, left or right 45 degrees, and left or right 90 degrees. I was able to demonstrate that my program and robot worked for the required functionality.
+
+Then A functionality was simple. I was able to just run the robot move operation for the desired button pressed. When that button was pressed I used A functionality to tell what button was pressed then perform the desired move. One thing that I had to do was keep reinitiating the MSP430 in the infinite while loop so that the timer was functioning properly for checking if an IR packet was recieved then I changed the timer for the moving of the robot when a button press event happened.
