@@ -34,7 +34,7 @@ The SN754410 is a quad half H-bridge IC. This allows the chip to either control 
 
 The following shows the connections for controlling 2 motors in either direction using 2 full H-bridges."
 
-#Required Functionality
+#Required Functionality and A Functionality
 
 --The method I used for Robot moves was using two PWM signals and then using two GPIOs and set them to either a 1 to move forawrd or a 0 to move backwards.
 
@@ -551,3 +551,85 @@ void stopRobot(){
 	_delay_cycles(1000);
 }
 ```
+
+Here is the header code for A Functionality, which was also used for the required functionality (the methods for IR button presses just weren't used for the required functionality)
+
+```
+//-----------------------------------------------------------------
+// Name:	Jarrod Wooden
+// File:	lab5.h
+// Date:	Fall 2014
+// Purp:	Include file for the MSP430
+//	Documentation: I used Dr Coulston's start code for lab 5 and this was
+//	the header for lab five plus the robot move void methods.
+//-----------------------------------------------------------------
+
+//-----------------------------------------------------------------
+// Page 76 : MSP430 Optimizing C/C++ Compiler v 4.3 User's Guide
+//-----------------------------------------------------------------
+typedef		unsigned char		int8;
+typedef		unsigned short		int16;
+typedef		unsigned long		int32;
+typedef		unsigned long long	int64;
+
+#define		TRUE				1
+#define		FALSE				0
+
+//-----------------------------------------------------------------
+// Function prototypes found in lab5.c
+//-----------------------------------------------------------------
+void initMSP430();
+__interrupt void pinChange (void);
+__interrupt void timerOverflow (void);
+
+void bothForward();
+void bothBackward();
+void tankRightForty();
+void tankLeftForty();
+void tankRightNinety();
+void tankLeftNinety();
+void stopRobot();
+
+
+//-----------------------------------------------------------------
+// Each PxIES bit selects the interrupt edge for the corresponding I/O pin.
+//	Bit = 0: The PxIFGx flag is set with a low-to-high transition
+//	Bit = 1: The PxIFGx flag is set with a high-to-low transition
+//-----------------------------------------------------------------
+
+#define		IR_PIN			(P2IN & BIT6)
+#define		HIGH_2_LOW		P2IES |= BIT6
+#define		LOW_2_HIGH		P2IES &= ~BIT6
+
+
+#define		averageLogic0Pulse	450
+#define		averageLogic1Pulse	0x05DF
+#define		averageStartPulse	22500
+#define		minLogic0Pulse		averageLogic0Pulse - 200
+#define		maxLogic0Pulse		averageLogic0Pulse + 200
+#define		minLogic1Pulse		averageLogic1Pulse - 200
+#define		maxLogic1Pulse		averageLogic1Pulse + 200
+#define		minStartPulse		averageStartPulse - 1000
+#define		maxStartPulse		averageStartPulse + 1000
+
+#define		PWR		0xC2D0
+#define		ONE		0xC284
+#define		TWO		0xC244
+#define		THR		0xC2C4
+
+#define		VOL_UP	0xC228 //right
+#define		VOL_DW	0xC2A8 //left
+#define		CH_UP	0xC298 //up
+#define		CH_DW	0xC218 //down
+
+```
+
+The important pieces of code for required functionality is the clearing and setting of the GPIO pins. Clear the pins if I wanted to make the robot move forward. And set the pins if I wanted the robot to move backwards.
+
+###Debugging: Delay Cycles
+
+Almost all of the debugging was making the delay cycles for each of the turns long enough to perform a 45 degree turn or a 90 degree turn. Also since the motors weren't precise, it took longer for the right motor to move forward to make the left hand 45 and 90 degree turn than it did for the left motor to move forward to make the right hand turns.
+
+I kept testing the robot turns until I made the turns close to what I wanted for the delay cycles (45 and 90 degrees)
+
+Also from the start of the lab it was difficult to get the method of using all PWM pins for the motor and switching from constantly reseting on one pin and doing the set/reset on the other pin and then just switching the function of the two for moving the opposite direction. -> Which is why I ended up using the GPIO method of making one pin the PWM signal and the other pin a 1 or 0 depending on if I wanted to move the robot forward or backwards.
